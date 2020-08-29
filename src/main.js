@@ -1,8 +1,28 @@
+/* Copyright Pedro Avelino 2020 */
+
+'use strict'
+
 import Vue from 'vue'
-import App from './App.vue'
 
-Vue.config.productionTip = false
+import store from '@/store'
+import Index from './views/Index.vue'
+import router from './router'
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+class MainApp {
+
+  constructor( ){
+    new Vue({
+      router,
+      store,
+      components: { Index },
+      render: h => h( Index ),
+    }).$mount('#app')
+  }
+}
+
+/* eslint-disable */
+// Main entry point of the application
+document.addEventListener('DOMContentLoaded', event => {
+
+  const app = new MainApp();
+});

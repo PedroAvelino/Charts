@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="charts">
+    <div class="chart-area">Chart One</div>
+    <div class="chart-area">Chart Two</div>
+    <div class="chart-area">Chart Three</div>
+    <div class="chart-area">Chart Four</div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Controller from "./lib/controller";
+import navBar from "@/views/Header.vue"
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+class IndexController extends Controller {
+
+    constructor(name, subComponentList = []) {
+        super(name, subComponentList);
+        
+        this.vm = {
+
+        };
+    }
+
+    
 }
+
+export default new IndexController("Index", {navBar});
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.charts {
+  flex-wrap: wrap;
+}
+
+.chart-area{
+  margin:  2px;
+  border: 1px solid;
+  max-width: 10vw;
 }
 </style>
