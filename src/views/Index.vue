@@ -10,7 +10,6 @@
 import TelemetryRecord from "../lib/TelemetryRecord";
 import Controller from "../lib/controller";
 import navBar from "./Header.vue"
-import BarChart from '../components/BarChart.vue'
 
 class IndexController extends Controller {
   constructor(name, subComponentList = []) {
@@ -21,7 +20,7 @@ class IndexController extends Controller {
 
 }
 
-export default new IndexController("Index", {navBar, BarChart});
+export default new IndexController("Index", {navBar});
 </script>
 
 <style>
