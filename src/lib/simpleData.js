@@ -4,7 +4,11 @@ const colors = [
     '#f87979',
     "33FF4F",
     "#4CC6BF",
-    "#B95DED"
+    "#B95DED",
+    "#B4ECEB",
+    "#FF9654",
+    "#C1FF54",
+    "#5944BC" 
 ]
 
 export default class RawData{

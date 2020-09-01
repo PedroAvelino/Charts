@@ -54,7 +54,6 @@ class IndexController extends Controller {
       
       //We use this so that we can but all of our data ina  single object
       combineDataSet( dataset ){
-        console.log(dataset)
         return  {datasets: dataset.combinedData, labels: dataset.getLabels() }
       },
       

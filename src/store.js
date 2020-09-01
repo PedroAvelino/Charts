@@ -47,6 +47,8 @@ const store = new Vuex.Store({
                     return;
                 });
 
+            console.log( id )
+
             commit('ADD_RAW', { id: id, label: newTRec.asString() });
 
 

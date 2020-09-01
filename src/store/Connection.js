@@ -109,14 +109,36 @@ export default class Connection{
                 }
                 else if(cmd.command != "update"){
                     //use firebase add()
-                    
-                    const docRef = await collection.add( data )
-                                
 
-                    response.payload = docRef.id;
-                    response.ok();
-                    resolve( response );
-                
+                    //access the doc by the doc id
+                    const query = await collection.where("playerName","==", data.playerName );
+                    
+                    //Check if the player already exists
+                    let getDoc = query.get()
+                        .then( snapshot => {
+                            
+                            //If it's empty create a new one
+                            if(snapshot.empty){
+                                
+                                collection.add( data )
+                                response.payload = docRef.id;
+                                response.ok();
+                                resolve( response );
+
+                            }else{
+                            
+                                //Get the id of the document
+                                let myData = snapshot.docs.map( doc => doc.id)
+                                let docId = myData[0]
+                                
+                                //Update the doc
+                                collection.doc(docId).update(data)
+  
+                                response.payload = myData
+                                response.ok();
+                                resolve( response );
+                            }
+                        })
                 
                 } else {
                     //update game state

@@ -99,6 +99,8 @@ class AdminController extends Controller {
 
         let recString = trec.asString();
         this.savedRecords.push(recString);
+
+        alert("Data added!");
     }
 }
 
