@@ -1,3 +1,6 @@
+<!--
+Copyright (c) 2020. Pedro Avelino. All Rights Reserved.
+-->
 <template>
   <div class="charts">
 

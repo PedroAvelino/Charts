@@ -1,3 +1,4 @@
+/* Copyright (C) 2020 Pedro Avelino, All rights reserved */
 //FIREBASE
 /* eslint-disable */
 import * as firebase from 'firebase/app'
@@ -12,7 +13,6 @@ import Result from '../lib/Result'
 import Axios from 'axios'
 
 
-/* Copyright (C) 2020 Pedro Avelino, All rights reserved */
 
 'use strict';
 

@@ -1,3 +1,4 @@
+/*Copyright Pedro Avelino 2020,*/
 'use strict';
 
 const colors = [
