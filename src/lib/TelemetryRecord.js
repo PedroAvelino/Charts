@@ -1,13 +1,13 @@
 /*Copyright Pedro Avelino 2020,*/
 
 export default class TelemetryRecord{
-    constructor( buildId, playerId, pos, status ){
+    constructor( playerName, playerId, pos, status ){
         
         this.data = localStorage.getItem('currentTRecData');
         
         this.data = {
-            ...status,
-            buildId,    //number
+            status,
+            playerName,    //string
             playerId,   //string_ref
             pos         //{ x: Number, y: Number}
         }

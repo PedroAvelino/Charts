@@ -5,20 +5,6 @@ import { Bar, mixins } from 'vue-chartjs'
 
 const { reactiveProp } = mixins
 
-const defn = {
-
-    extends: Bar,
-    mixins: [ reactiveProp ],
-    props: {
-        charData: Object,
-        options: Object
-    },
-    created() {},
-    mounted() {
-        this.renderChart( this.chartData, this.options )
-    }
-}
-
 class Chart extends Controller{
 
     constructor( name, subComponentList ){

@@ -8,9 +8,9 @@ const colors = [
 ]
 
 export default class RawData{
-    constructor(label = "No Label", data = "-1", color = "#ffffff"){
+    constructor(name = "No Label", data = "-1"){
 
-        this.label = label;
+        this.label = name;
         this.data = data;
         this.backgroundColor = this.getRandomColor();
     }

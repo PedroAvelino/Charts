@@ -9,18 +9,18 @@
     </div>
 
     <div class="chart-area">
-      <polar-chart :chartData="spreadDataSet(dataSet)" :options="{}"/>
+      <polar-chart :chartData="combineDataSet(dataSet)" :options="{}"/>
 
       Chart Two
     </div>
 
     <div class="chart-area">
-      <doughnut-chart :chartData="spreadDataSet(dataSet)" :options="{}"/>
+      <doughnut-chart :chartData="combineDataSet(dataSet)" :options="{}"/>
       Chart Three
     </div>
 
     <div class="chart-area">
-      <pie-chart :chartData="spreadDataSet(dataSet)" :options="{}"/>
+      <pie-chart :chartData="combineDataSet(dataSet)" :options="{}"/>
       Chart Four
     </div>
   </div>
@@ -44,30 +44,34 @@ class IndexController extends Controller {
     super(name, subComponentList);
 
     this.vm = {
-          getOptions( myData ){
-    return myData.getOptions()
-  }
+    };
+
+    this.methods = {
+            
+      getOptions( myData ){
+        return myData.getOptions()
+      },
+      
+      //We use this so that we can but all of our data ina  single object
+      combineDataSet( dataset ){
+        console.log(dataset)
+        return  {datasets: dataset.combinedData, labels: dataset.getLabels() }
+      },
+      
+      //We get our dataset and spread it
+      divideData(dataset){
+        return dataset.getSpreadData()
+      },
     };
 
     this.injectGetters(["dataSet"])
+    this.injectActions(["getAllRecords"])
   }
 
-  //We use this so that we can spread the info of our data
-  spreadDataSet( dataset ){
 
-    return  {datasets: dataset.combinedData, labels: dataset.getLabels() }
+  vue_beforeMount() {
+    this.getAllRecords();
   }
-
-  //We get our dataset and spread it
-  divideData(dataset){
-    return dataset.getSpreadData()
-
-  }
-
-  getRandomInt(){
-    return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-  }
-
 
 }
 

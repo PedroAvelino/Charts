@@ -6,8 +6,8 @@ Copyright (c) 2020. Pedro Avelino. All Rights Reserved.
    <div>
       <form @submit.prevent="saveRec(myData)">
 
-          <label for='fbuild'>Build ID:</label>
-          <input type='text' id="fbuild" value='1' v-model="myData.buildNo">
+          <label for='fbuild'>Player Name:</label>
+          <input type='text' id="fbuild" value='1' v-model="myData.playerName">
 
           <label for='fbuild'>Player ID:</label>
           <input type='text' id="fplayerId" value='1' v-model="myData.playerId">
@@ -53,7 +53,7 @@ class AdminController extends Controller {
             
             //Data to send
             myData: {
-              buildNo: 1,
+              playerName: "Null Name",
               
               position: {
                 x: 0,
@@ -89,14 +89,12 @@ class AdminController extends Controller {
       this.getRecord( payload );
 
       this.fetchedData = this.newInfo;
-
-      console.log(this.newInfo);
     }
 
     saveRec( myData ) {
 
     
-        let trec = new TelemetryRecord(myData.buildNo, myData.playerId, myData.position, myData.status.actions);
+        let trec = new TelemetryRecord(myData.playerName, myData.playerId, myData.position, myData.status.actions);
         this.updateRecord(trec);
 
         let recString = trec.asString();

@@ -3,19 +3,15 @@
 import RawData from '../lib/simpleData'
 
 export default class DataSet {
-    constructor( ){
+    constructor( datasets = [] ){
 
-        this.datasets = [
-            new RawData("Nope", "9"),
-            new RawData("Hello", "3"),
-            new RawData("Dip", "7")
-        ]
+        this.datasets = datasets
 
         //These is used for the pie and donut chart
         this.combinedData = [{
-            data: this.datasets.map( d => d.data ),
-            label:  this.getLabels,
-            backgroundColor: this.datasets.map( d => d.backgroundColor )
+            data: datasets.map( d => d.data ),
+            label:  this.getLabels(),
+            backgroundColor: datasets.map( d => d.backgroundColor )
         }]
         
         this.options = {

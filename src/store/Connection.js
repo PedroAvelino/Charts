@@ -76,8 +76,6 @@ export default class Connection{
                                 resolve( response );
 
                             }else{
-
-
                                 //Assuming there's only one unique player
                                 let myData;
                                 snapshot.forEach( doc => {
@@ -92,10 +90,26 @@ export default class Connection{
 
 
                 }
+                //Get the data from the firestore
+                else if(cmd.command == "getAll"){
+                    let getDoc = collection.get()
+                        .then( snapshot => {
+                            if(snapshot.empty){
+                                
+                                response.errorCode = 101;
+                                response.errorMsg = "No collection is empty!";
+                                resolve( response );
+                            }else{
+                                //Return all the documents
+                                response.payload = snapshot.docs.map( doc => doc.data())
+                                response.ok()
+                                resolve( response );
+                            }
+                        })
+                }
                 else if(cmd.command != "update"){
                     //use firebase add()
                     
-                    /* eslint-disable */
                     const docRef = await collection.add( data )
                                 
 
@@ -107,8 +121,7 @@ export default class Connection{
                 } else {
                     //update game state
                     const query = collection.where("id","==", cmd.params[0]);
-                    
-                    /* eslint-disable */
+
                     let docRef = await query.set( data, { merge: true })
                                 .catch( err => reject( response ));
 

@@ -11,6 +11,7 @@ Vue.use(Vuex, Axios)
 
 import Connection from './store/Connection'
 import DataSet from './lib/dataset'
+import RawData from './lib/simpleData'
 import TelemetryRecord from './lib/TelemetryRecord'
 
 const cloud = new Connection();
@@ -66,10 +67,53 @@ const store = new Vuex.Store({
                 console.log(info);
             }
             else {
+                
                 let player = info.payload;
-                let myMsg = `Player Info: ${player.playerId}, X: ${player.pos.x}, Y: ${player.pos.y}, Action: ${player.action}`;
+                let myMsg = `Player Info: ${player.playerName}, ${player.playerId}, X: ${player.pos.x}, Y: ${player.pos.y}, Action: ${player.status}`;
                 alert(myMsg);
+
                 commit('ADD_INFO', info.payload)
+            }
+
+        },
+
+        //This will return all the documents we currently have in firebase
+        async getAllRecords({ commit }) {
+
+            let info = await cloud.post(`/api/telemetry/getAll`)
+                .catch(err => {
+
+                    console.log(err);
+
+                    return;
+                })
+
+            if (info.errorCode != -1) {
+                alert(info.errorMsg);
+                console.log(info);
+            }
+            else {
+                let docs = info.payload;
+                
+                //All docs we found
+                let gotData = []
+                
+                //Loop through the docs and add them to the array
+                docs.forEach(element => {
+                    let params = {...element}                    
+                    
+                    //Build a new data
+                    let newData = new RawData(params.playerName, `${params.status}`)
+                    
+                    //Add the new data to our dataset
+                    gotData.push(newData)
+                });
+
+                //Create a new dataset
+                let dataset = new DataSet( gotData )
+                
+                //Commit the changes
+                commit('ADD_DATA', dataset)
             }
 
         }
@@ -80,7 +124,7 @@ const store = new Vuex.Store({
         ADD_RAW: (state, newRaw) => { state.telemetryRAW.push(newRaw) },
         SET_CURRENT: (state, newTRec) => { state.currentRec = newTRec },
         ADD_INFO: (state, info) => { state.info = info },
-        ADD_DATA: (state, newData) => {state.dataSet = newData }
+        ADD_DATA: (state, newData) => { state.dataSet = newData }
     }
 });
 
